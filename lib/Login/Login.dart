@@ -47,8 +47,8 @@ class _LoginState extends State<Login> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => KhamPha()));
                       },
-                      icon: Icon(Icons.chevron_left),
-                      color: Color.fromRGBO(221, 221, 221, 1),
+                      icon: Icon(Icons.arrow_back),
+                      color: Colors.black,
                     ),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(255, 255, 255, 0.03),
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                         "Đăng Nhập",
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 23,
                             fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -75,10 +75,10 @@ class _LoginState extends State<Login> {
                   child: Column(
                     children: [
                       Text(
-                        '',
+                        'Email',
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                           color: Colors.black12,
                         ),
                       ),
@@ -106,9 +106,10 @@ class _LoginState extends State<Login> {
                         },
                       ),
                       Text(
-                        '',
+                        'Mật khẩu',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -139,6 +140,8 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(
                 height: 35,
+
+
               ),
                   Container(
                     child: ElevatedButton(
@@ -147,21 +150,100 @@ class _LoginState extends State<Login> {
                       ElevatedButton.styleFrom(primary: Colors.blueGrey[700],
     ),
                       child: SizedBox(
-                        width: 280,
-                        height: 50,
+                        width: 300,
+                        height: 60,
                         child: Center(
                           child: Text(
-                            'ĐĂNG NHẬP',
+                            'Đăng nhập',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 17,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
-                                )
+                                ),
                             ),
                           ),
                         ),
                       ),
                     ),
+
+
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      "Đăng ký",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 130),
+                    child: Text(
+                      "Quên mật khẩu",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+             ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  Container(
+                    margin: EdgeInsets.only(top: 40),
+                    width: 50,
+                    height: 50,
+                    child: Image.asset(
+                      'images/facebook.png',
+                  ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    margin: EdgeInsets.only(top: 40,left: 20),
+                    child: Image.asset(
+                      'images/google.png',
+                  ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                      child: Text(
+                        "Điều khoản sử dụng ứng dụng",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: IconButton(
+                      onPressed: () {
+                      },
+                      icon: Icon(Icons.open_in_new),
+                      color: Colors.blue,
+
+                      ),
+                    ),
+
+
+                ],
+              ),
+
+
+
+
                 ],
               ),
 
