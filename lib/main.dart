@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2/Login/Register.dart';
 import 'home.dart';
 import 'khampha.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ReadBook',
       debugShowCheckedModeBanner: false,
-      home:Home(),
+      home:Register(),
     );
   }
 }
