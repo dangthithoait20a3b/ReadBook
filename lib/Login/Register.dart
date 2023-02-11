@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Login.dart';
 import 'package:flutter2/home.dart';
@@ -17,6 +19,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
   bool _obscureText = true;
   void showFaileMessage() {
     showDialog<String>(
@@ -216,23 +220,23 @@ class _RegisterState extends State<Register> {
                   children: [
                     MaterialButton(
                       onPressed: () {
-                        // FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        //     email: emailController.text,
-                        //     password: passwordController.text
-                        // ).then((value) {
-                        //   firestore.collection("user").add({
-                        //     "fullname":fullnameController.text,
-                        //     "email": emailController.text,
-                        //     "password": passwordController.text,
-                        //     "uid": auth.currentUser!.uid
-                        //   });
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => Home()));
-                        // }).onError((error, stackTrace) {
-                        //   showFaileMessage();
-                        // });
+                        FirebaseAuth.instance.createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passwordController.text
+                        ).then((value) {
+                          firestore.collection("user").add({
+                            "fullname":fullnameController.text,
+                            "email": emailController.text,
+                            "password": passwordController.text,
+                            "uid": auth.currentUser!.uid
+                          });
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home()));
+                        }).onError((error, stackTrace) {
+                          showFaileMessage();
+                        });
                       },
                       color: Colors.blueGrey[700],
                       minWidth: 330,

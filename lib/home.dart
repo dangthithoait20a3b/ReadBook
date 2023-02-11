@@ -34,17 +34,17 @@ class _HomeState extends State<Home> {
           unselectedItemColor: Color.fromRGBO(115, 115, 115, 1),
           items: const<BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
                 label: "Khám phá sách",
                 backgroundColor: Colors.grey
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.book),
+                icon: Icon(Icons.menu_book),
                 label: "Tủ sách",
                 backgroundColor: Colors.grey
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.account_circle),
                 label: "Tài khoản",
                 backgroundColor: Colors.grey
             ),

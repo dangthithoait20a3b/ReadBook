@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Register.dart';
+import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
 
 class Login extends StatefulWidget {
@@ -35,39 +36,19 @@ class _LoginState extends State<Login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Home())), icon: Icon(Icons.arrow_back, color: Colors.black,)),
+        title: Text("Đăng Nhập", style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.black
+        ),
+        ),
+      ),
       body: Container(
         child: Column(
           children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 36, left: 15),
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => KhamPha()));
-                    },
-                    icon: Icon(Icons.arrow_back),
-                    color: Colors.black,
-                  ),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(255, 255, 255, 0.03),
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 36, left: 30),
-                  child: Center(
-                    child: Text(
-                      "Đăng Nhập",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 80, 20, 0),
               child: Form(
@@ -133,25 +114,45 @@ class _LoginState extends State<Login> {
               height: 35,
             ),
             Container(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blueGrey[700],
-                ),
-                child: SizedBox(
-                  width: 300,
-                  height: 60,
-                  child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      // FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      //     email: emailController.text,
+                      //     password: passwordController.text
+                      // ).then((value) {
+                      //   firestore.collection("user").add({
+                      //     "fullname":fullnameController.text,
+                      //     "email": emailController.text,
+                      //     "password": passwordController.text,
+                      //     "uid": auth.currentUser!.uid
+                      //   });
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => Home()));
+                      // }).onError((error, stackTrace) {
+                      //   showFaileMessage();
+                      // });
+                    },
+                    color: Colors.blueGrey[700],
+                    minWidth: 330,
+                    height: 50,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
                     child: Text(
-                      'Đăng nhập',
+                      "Đăng Nhập",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Color.fromRGBO(255, 255, 255, 1),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
             Row(
