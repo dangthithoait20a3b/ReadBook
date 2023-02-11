@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119239902833",
+    "project_id": "readbook-be488",
+    "storage_bucket": "readbook-be488.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119239902833:android:74d9ef50dddc6158c13dd0",
+        "android_client_info": {
+          "package_name": "com.example.flutter2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119239902833-jv0hs0eii1qmkuo9nk7du4p8htkpb3h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Aa6HM4_JuNVK0X5HPV4nIx6QQ5250sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119239902833-jv0hs0eii1qmkuo9nk7du4p8htkpb3h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
