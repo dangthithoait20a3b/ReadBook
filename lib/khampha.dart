@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Login.dart';
+import 'package:flutter2/content_khamPha.dart';
+import 'package:flutter2/member/members.dart';
 
 class KhamPha extends StatefulWidget {
   const KhamPha({Key? key}) : super(key: key);
@@ -15,12 +17,44 @@ class _KhamPhaState extends State<KhamPha> {
     child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: null,
+        backgroundColor: Colors.white,
+          title: Container(
+              child:Row(
+                children: [
+                  Column(
+                    children: [
+                      IconButton(onPressed: (){}, icon:Icon(Icons.search) )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text("Tìm kiếm sách")
+                    ],
+                  )
+                ],
+              ),
+          ),
           centerTitle: true,
+        foregroundColor: Colors.grey,
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>members()));
+          }, icon: Icon(Icons.verified, color: Colors.yellow,))
+        ],
       ),
+     body: Scaffold(
+       body: Column(
+         children: [
+           Expanded(
+             child: Container(
+               child: contentKhamPha(),
+             ),
+           )
+         ],
+       ),
+     ),
       drawer: Drawer(
         child: SingleChildScrollView(
-
           child: Column(
             children: [
               Container(

@@ -38,6 +38,8 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
   flutter_firebase_firestore: ^0.0.1
+  flutter_swiper_view: ^1.1.8
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

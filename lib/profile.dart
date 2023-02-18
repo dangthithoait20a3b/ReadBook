@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Login.dart';
+import 'package:flutter2/Login/logged.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -7,12 +9,15 @@ class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => _ProfileState();
 }
-
+final currentUser = FirebaseAuth.instance;
+final user = currentUser.currentUser;
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Login()
+    return Row(
+      children: [
+        (user != null)? Expanded(child: logged()): Expanded(child: Login())
+      ],
     );
   }
 }

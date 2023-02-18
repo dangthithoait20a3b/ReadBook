@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter2/Login/Register.dart';
+i afimport 'package:flutter2/Login/Register.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
 
@@ -120,23 +121,13 @@ class _LoginState extends State<Login> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      // FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      //     email: emailController.text,
-                      //     password: passwordController.text
-                      // ).then((value) {
-                      //   firestore.collection("user").add({
-                      //     "fullname":fullnameController.text,
-                      //     "email": emailController.text,
-                      //     "password": passwordController.text,
-                      //     "uid": auth.currentUser!.uid
-                      //   });
-                      //   Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => Home()));
-                      // }).onError((error, stackTrace) {
-                      //   showFaileMessage();
-                      // });
+                      FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text,
+                          password: passwordController.text)
+                          .then((value){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                      }).onError((error, stackTrace) {
+                        showFaileMessage();
+                      });
                     },
                     color: Colors.blueGrey[700],
                     minWidth: 330,

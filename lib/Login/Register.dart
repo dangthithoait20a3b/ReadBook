@@ -100,7 +100,8 @@ class _RegisterState extends State<Register> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
-                            )),
+                            )
+                        ),
                         controller: emailController,
                         validator: (value) {
                           if (value!.isEmpty) {
