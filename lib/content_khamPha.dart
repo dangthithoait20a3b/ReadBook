@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2/khamPhaSach/sachMoiNhat.dart';
 import 'package:flutter2/services/sach.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
@@ -31,34 +32,37 @@ class _contentKhamPhaState extends State<contentKhamPha> {
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Text(
-                    "Hôm nay đọc gì",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20,),
             Container(
-              height: 250,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: postData.length,
-                itemBuilder: (context, index){
-                  final urlImage = postData[index].anh;
-                  return(
-                  buildCard(urlImage!, index)
-                  );
-                },
+              child:   Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text(
+                      "Hôm nay đọc gì",
+                      style:
+                      TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: postData.length,
+                      itemBuilder: (context, index){
+                        final urlImage = postData[index].anh;
+                        return(
+                            buildCard(urlImage!, index)
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
+            Expanded(child:sachMoiNhat())
           ],
         ),
       ),

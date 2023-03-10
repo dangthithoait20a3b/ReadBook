@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-i afimport 'package:flutter2/Login/Register.dart';
+import 'package:flutter2/Login/Register.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
+
+import 'Register.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
