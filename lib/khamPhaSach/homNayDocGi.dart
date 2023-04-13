@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/models/post.dart';
+import 'package:flutter2/screen/chitiet.dart';
 import 'package:flutter2/services/sach.dart';
 
 class homNayDocGi extends StatefulWidget {
@@ -24,8 +25,8 @@ class _homNayDocGiState extends State<homNayDocGi> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
+      child: Container(
         child:   Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,16 +47,15 @@ class _homNayDocGiState extends State<homNayDocGi> {
                 itemCount: postData.length,
                 itemBuilder: (context, index){
                   final urlImage = postData[index].anh;
-                  return(
-                      buildCard(urlImage!, index)
-                  );
+                  return
+                      buildCard(urlImage!, index);
                 },
               ),
             ),
 
           ],
         ),
-      ),
+      )
     );
   }
   Widget buildCard(String urlImage, int index) => Container(
@@ -65,11 +65,15 @@ class _homNayDocGiState extends State<homNayDocGi> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network("${postData[index].anh}", height: 150,),
+        InkWell(child: Image.network("${postData[index].anh}", height: 150, fit: BoxFit.fill,),
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => chiTietBook(postData: postData[index])));
+        },),
         SizedBox(height: 4,),
         Text("${postData[index].tenSach}", overflow: TextOverflow.ellipsis,),
         Text("${postData[index].tacGia}", overflow: TextOverflow.ellipsis,)
       ],
     ),
+
   );
 }

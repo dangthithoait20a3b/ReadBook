@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/models/post.dart';
+import 'package:flutter2/screen/chitiet.dart';
 import 'package:flutter2/services/sach.dart';
 
 class sachMoiNhat extends StatefulWidget {
@@ -92,10 +93,15 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
                               margin: EdgeInsets.symmetric(horizontal: 4), // khoảng cách Images
                               color: Colors.grey,
                               width: double.infinity,
-                              child: Image.network(
-                                '${postData[index].anh}',
-                                fit: BoxFit.fill,
-                                height: 150,
+                              child: InkWell(
+                                child: Image.network(
+                                  '${postData[index].anh}',
+                                  fit: BoxFit.fill,
+                                  height: 150,
+                                ),
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => chiTietBook(postData: postData[index])));
+                                },
                               ),
                             ),
                             Container(

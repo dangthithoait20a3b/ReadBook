@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2/khamPhaSach/sachDocNhieu.dart';
 import 'package:flutter2/khamPhaSach/sachMoiNhat.dart';
 import 'package:flutter2/services/sach.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
@@ -62,7 +63,8 @@ class _contentKhamPhaState extends State<contentKhamPha> {
                 ],
               ),
             ),
-            Expanded(child:sachMoiNhat())
+            Expanded(child:sachMoiNhat()),
+
           ],
         ),
       ),

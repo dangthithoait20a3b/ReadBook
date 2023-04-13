@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Register.dart';
+import 'package:flutter2/Login/logged.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
 
@@ -63,6 +64,7 @@ class _LoginState extends State<Login> {
                           filled: true,
                           hintText: 'Email',
                           fillColor: Colors.black12,
+                          prefixIcon: Icon(Icons.person_outline),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
@@ -90,6 +92,7 @@ class _LoginState extends State<Login> {
                           filled: true,
                           hintText: 'Mật khẩu',
                           fillColor: Colors.black12,
+                          prefixIcon: Icon(Icons.lock_outline),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
@@ -126,7 +129,7 @@ class _LoginState extends State<Login> {
                       FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text,
                           password: passwordController.text)
                           .then((value){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => logged()));
                       }).onError((error, stackTrace) {
                         showFaileMessage();
                       });

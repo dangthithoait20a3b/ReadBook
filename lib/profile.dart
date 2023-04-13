@@ -10,8 +10,16 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 final currentUser = FirebaseAuth.instance;
-final user = currentUser.currentUser;
+User? user;
+
+
 class _ProfileState extends State<Profile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = currentUser.currentUser; // kiểm tra nếu người dùng đang đăng nhập hoặc null
+  }
   @override
   Widget build(BuildContext context) {
     return Row(

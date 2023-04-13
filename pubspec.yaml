@@ -40,6 +40,8 @@ dependencies:
   flutter_firebase_firestore: ^0.0.1
   flutter_swiper_view: ^1.1.8
   http: ^0.13.5
+  flutter_expandable_text: ^1.0.0
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_test:

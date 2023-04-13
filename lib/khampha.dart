@@ -5,6 +5,7 @@ import 'package:flutter2/Login/Login.dart';
 import 'package:flutter2/Login/logged.dart';
 import 'package:flutter2/content_khamPha.dart';
 import 'package:flutter2/member/members.dart';
+import 'package:flutter2/search/search.dart';
 
 class KhamPha extends StatefulWidget {
   const KhamPha({Key? key}) : super(key: key);
@@ -14,9 +15,17 @@ class KhamPha extends StatefulWidget {
 }
 
 final currentUser = FirebaseAuth.instance;
-final user = currentUser.currentUser;
+User? user;
+
+
 
 class _KhamPhaState extends State<KhamPha> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = currentUser.currentUser; // kiểm tra nếu người dùng đang đăng nhập hoặc null
+  }
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 2,
@@ -25,17 +34,20 @@ class _KhamPhaState extends State<KhamPha> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Container(
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.search))
-                    ],
-                  ),
-                  Column(
-                    children: [Text("Tìm kiếm sách")],
-                  )
-                ],
+              child: InkWell(
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(onPressed: () {}, icon: Icon(Icons.search))
+                      ],
+                    ),
+                    Column(
+                      children: [Text("Tìm kiếm sách")],
+                    )
+                  ],
+                ),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>search())),
               ),
             ),
             centerTitle: true,

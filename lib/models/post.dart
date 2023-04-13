@@ -9,6 +9,7 @@ class Post {
   String? ngonNgu;
   String? noiDung;
   String? id;
+  bool isFavorite = false;
 
   Post(
       {this.tenSach,

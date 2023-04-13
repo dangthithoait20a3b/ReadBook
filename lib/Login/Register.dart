@@ -70,6 +70,7 @@ class _RegisterState extends State<Register> {
                             filled: true,
                             hintText: 'Tên',
                             fillColor: Colors.black12,
+                            prefixIcon: Icon(Icons.person_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
@@ -97,6 +98,7 @@ class _RegisterState extends State<Register> {
                             filled: true,
                             hintText: 'Email',
                             fillColor: Colors.black12,
+                            prefixIcon: Icon(Icons.person_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
@@ -125,6 +127,7 @@ class _RegisterState extends State<Register> {
                             filled: true,
                             hintText: 'Mật khẩu',
                             fillColor: Colors.black12,
+                            prefixIcon: Icon(Icons.lock_outlined),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
@@ -152,6 +155,7 @@ class _RegisterState extends State<Register> {
                             filled: true,
                             hintText: 'Nhập lại mật khẩu',
                             fillColor: Colors.black12,
+                            prefixIcon: Icon(Icons.lock_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
@@ -234,7 +238,7 @@ class _RegisterState extends State<Register> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Home()));
+                                  builder: (context) => Login()));
                         }).onError((error, stackTrace) {
                           showFaileMessage();
                         });

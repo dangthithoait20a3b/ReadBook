@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
 
 class logged extends StatefulWidget {
@@ -231,7 +232,7 @@ class _loggedState extends State<logged> {
                               IconButton(
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut().then((value) => {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KhamPha()))
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()))
                                     });
                                   },
                                   icon: Icon(Icons.chevron_right))
