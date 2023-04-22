@@ -129,7 +129,7 @@ class _LoginState extends State<Login> {
                       FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text,
                           password: passwordController.text)
                           .then((value){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => logged()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                       }).onError((error, stackTrace) {
                         showFaileMessage();
                       });

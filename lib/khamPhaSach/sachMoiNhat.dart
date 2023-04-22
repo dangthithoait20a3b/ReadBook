@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/models/post.dart';
+import 'package:flutter2/sachMoiNhat/xemThemSachMoiNhat.dart';
 import 'package:flutter2/screen/chitiet.dart';
 import 'package:flutter2/services/sach.dart';
 
@@ -39,14 +40,19 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
                     )
                   ],
                 ),
-                Column(
-                  children: [
-                    Text("Xem tất cả",
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                      ),
-                    )
-                  ],
+                InkWell(
+                  child: Column(
+                    children: [
+                      Text("Xem tất cả",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => xemThemSachMoiNhat()));
+                  },
                 ),
               ],
             ),

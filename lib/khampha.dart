@@ -5,6 +5,7 @@ import 'package:flutter2/Login/Login.dart';
 import 'package:flutter2/Login/logged.dart';
 import 'package:flutter2/content_khamPha.dart';
 import 'package:flutter2/member/members.dart';
+import 'package:flutter2/notification/notification.dart';
 import 'package:flutter2/search/search.dart';
 
 class KhamPha extends StatefulWidget {
@@ -61,7 +62,10 @@ class _KhamPhaState extends State<KhamPha> {
                   icon: Icon(
                     Icons.verified,
                     color: Colors.yellow,
-                  ))
+                  )),
+              IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
+              }, icon: Icon(Icons.notifications))
             ],
           ),
           body: Scaffold(

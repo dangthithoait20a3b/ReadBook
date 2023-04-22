@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2/models/post.dart';
+import 'package:flutter2/search/search.dart';
 import 'package:flutter2/services/sach.dart';
 
 class TuSach extends StatefulWidget {
@@ -39,20 +40,24 @@ class _TuSachState extends State<TuSach> {
                        Container(
                          width: 285,
                          margin: EdgeInsets.only(top: 30, left: 10),
-                         child: Row(
-                           children: [
-                             Column(
-                               children: [
-                                 IconButton(onPressed: (){}, icon:Icon(Icons.search) )
-                               ],
-                             ),
-                             Column(
-                               children: [
-                                 Text("Tìm kiếm sách của tôi")
-                               ],
-                             )
-                           ],
+                         child: InkWell(
+                           child: Row(
+                             children: [
+                               Column(
+                                 children: [
+                                   IconButton(onPressed: (){}, icon:Icon(Icons.search) )
+                                 ],
+                               ),
+                               Column(
+                                 children: [
+                                   Text("Tìm kiếm sách của tôi")
+                                 ],
+                               )
+                             ],
+                           ),
+                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>search())),
                          ),
+
                          decoration: BoxDecoration(
                            color: Colors.grey,
                            borderRadius: BorderRadius.circular(30),

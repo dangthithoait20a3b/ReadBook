@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
+import 'package:flutter2/profile/changeimformation.dart';
 
 class logged extends StatefulWidget {
   const logged({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class logged extends StatefulWidget {
 }
 
 class _loggedState extends State<logged> {
+  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final currentUser = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -153,7 +156,9 @@ class _loggedState extends State<logged> {
                           Column(
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => changeInformation()));
+                                  },
                                   icon: Icon(Icons.chevron_right))
                             ],
                           )
@@ -175,20 +180,44 @@ class _loggedState extends State<logged> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [Text("Liên hệ, phản hồi")],
-                          ),
-                          Column(
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.chevron_right))
-                            ],
-                          )
-                        ],
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [Text("Liên hệ, phản hồi"),
+
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                    },
+                                    icon: Icon(Icons.chevron_right))
+                              ],
+                            )
+                          ],
+                        ),
+                        onTap: (){
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Thông báo"),
+                                content: Text("Xin vui lòng liên hệ với chúng tôi qua email: abc@gmail.com"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Đóng"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
