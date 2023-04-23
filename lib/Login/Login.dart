@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Register.dart';
+import 'package:flutter2/Login/forgotpassword.dart';
 import 'package:flutter2/Login/logged.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
@@ -168,15 +169,20 @@ class _LoginState extends State<Login> {
                     },
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, left: 130),
-                  child: Text(
-                    "Quên mật khẩu",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
+                InkWell(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20, left: 130),
+                    child: Text(
+                      "Quên mật khẩu",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => forgotPassword()));
+                  },
                 ),
               ],
             ),
