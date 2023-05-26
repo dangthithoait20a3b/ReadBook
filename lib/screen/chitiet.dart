@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter2/Login/Login.dart';
 import 'package:flutter2/docSach/docSach.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/models/post.dart';
+import 'package:flutter2/favorite/FavoriteManager.dart';
 import 'package:flutter_expandable_text/flutter_expandable_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class chiTietBook extends StatefulWidget {
   final Post postData;
@@ -16,34 +21,71 @@ class chiTietBook extends StatefulWidget {
 }
 
 class _chiTietBookState extends State<chiTietBook> {
+  final currentUser = FirebaseAuth.instance;
+  User? user;
+
   bool _iconBool = true;
+  FavoriteManager _favoriteManager = FavoriteManager();
+  bool _isFavorite = false;
+  final DatabaseReference _favoriteRef = FirebaseDatabase.instance.reference().child('users').child('userId').child('favorites');
+
+  Future<void> _toggleFavorite() async {
+    if (_isFavorite) {
+      await _favoriteManager.removeFromFavorite('userId', widget.postData);
+      _favoriteRef.child(widget.postData.id ?? '').remove();
+    } else {
+      await _favoriteManager.addToFavorite('userId', widget.postData);
+      _favoriteRef.child(widget.postData.id ?? '').set({
+        'id': widget.postData.id,
+        'tenSach': widget.postData.tenSach,
+        'anh': widget.postData.anh,
+        'tacGia': widget.postData.tacGia,
+        'ngonNgu': widget.postData.ngonNgu,
+        'theLoai': widget.postData.theLoai,
+        'moTa': widget.postData.moTa
+      });
+    }
+
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+
+    _prefs.setBool(widget.postData.id!, _isFavorite);
+  }
+
+  late SharedPreferences _prefs;
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      _prefs = prefs;
+      setState(() {
+        _isFavorite = _prefs.getBool(widget.postData.id!) ?? false;
+        user =currentUser.currentUser;
+      });
+    });
+  }
+
+  Future<void> _saveBookToHistory(Post postData) async {
+    final history = _prefs.getStringList('history') ?? [];
+    if (history.contains(postData.id)) return;
+    history.add(postData.id ?? ''); // Add '' as fallback value if postData.id is null
+    await _prefs.setStringList('history', history);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+          Navigator.pop(context);
         }, icon: Icon(Icons.chevron_left, color: Colors.black,)),
         title: Text("${widget.postData.tenSach}", style: TextStyle(
           color: Colors.black,
           fontSize: 16,
         ),),
         actions: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.share, color: Colors.black,))
-                ],
-              ),
-              Column(
-                children: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.verified , color: Colors.yellow, size: 30,))
-                ],
-              ),
-            ],
-          )
+
         ],
       ),
       body: SingleChildScrollView(
@@ -143,11 +185,12 @@ class _chiTietBookState extends State<chiTietBook> {
                                        margin: EdgeInsets.only(top:20,left:5,right: 5),
                                        child: IconButton(
                                          onPressed: (){
-                                           setState(() {
-                                             _iconBool = !_iconBool;
-                                           });
+                                           _toggleFavorite();
                                          },
-                                         icon: _iconBool ? Icon(Icons.favorite_border, color: Colors.grey,) : Icon(Icons.favorite, color: Colors.red,),
+                                         icon: Icon(
+                                           _isFavorite ? Icons.favorite : Icons.favorite_border,
+                                           color: _isFavorite ? Colors.red : Colors.grey,
+                                         ),
                                        ),
                                        decoration: BoxDecoration(
                                            color: Colors.grey[300],
@@ -162,8 +205,8 @@ class _chiTietBookState extends State<chiTietBook> {
                                        width: 40,
                                        height: 40,
                                        margin: EdgeInsets.only(top: 20),
-                                       child: IconButton(
-                                         onPressed: (){
+                                       child:  IconButton(
+                                         onPressed: () {
                                            setState(() {
                                              _iconBool = !_iconBool;
                                            });
@@ -187,7 +230,40 @@ class _chiTietBookState extends State<chiTietBook> {
                        height: 35,
                      ),
                      MaterialButton(
-                       onPressed: () {},
+                       onPressed: () {
+                        final snackBar = SnackBar(
+                          backgroundColor: Colors.white,
+                          content: Container(
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Mua Sách Giấy", style: TextStyle(
+                                  color: Colors.grey
+                                ),),
+                                Text("Shopee", style: TextStyle(
+                                  color: Colors.black
+                                ),),
+                                Text("Tiki",style: TextStyle(
+                                  color: Colors.black
+                                ),),
+                                InkWell(
+                                  child: Text("Cancel",style: TextStyle(
+                                      color: Colors.red,
+                                  ),),
+                                  onTap: ()=>Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                       },
                        color: Colors.green[300],
                        minWidth: 200,
                        height: 35,
@@ -239,7 +315,7 @@ class _chiTietBookState extends State<chiTietBook> {
                       ),
                       Column(
                         children: [
-                          Text("${widget.postData.theLoai}")
+                          Text("${widget.postData.theLoai} > ${widget.postData.chiTietTheLoai}")
                         ],
                       )
                     ],
@@ -289,8 +365,10 @@ class _chiTietBookState extends State<chiTietBook> {
               Positioned(
                 child: Center(
                   child: MaterialButton(
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => docSach(postData: widget.postData)));
+                    onPressed: ()async {
+                      await _saveBookToHistory(widget.postData);
+                      user != null ? Navigator.push(context,MaterialPageRoute(builder: (context) => docSach(postData: widget.postData)))
+                          : Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
                     },
                     color: Colors.green[300],
                     minWidth: 200,
@@ -308,6 +386,29 @@ class _chiTietBookState extends State<chiTietBook> {
                   ),
                 ),
               ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                     Column(
+                    children: [
+                      Text("Đánh giá sách" , style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 16
+                      ),),
+                    ],
+                     ),
+                     Column(
+                         children: [
+                           TextButton(onPressed: (){}, child: Text("Xem tất cả"))
+                         ],
+                     )
+                    ],
+                  )
+                ],
+              )
             ],
           ),
         ),

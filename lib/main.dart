@@ -6,6 +6,7 @@ import 'home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
+
 Future<void> backgroundHandler(RemoteMessage message) async {
   print("This is message from background");
   print(message.notification!.title);

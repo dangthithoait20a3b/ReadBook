@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/home.dart';
 import 'package:flutter2/khampha.dart';
+import 'package:flutter2/member/members.dart';
 import 'package:flutter2/profile/changeimformation.dart';
 
 class logged extends StatefulWidget {
@@ -15,7 +17,22 @@ class logged extends StatefulWidget {
 class _loggedState extends State<logged> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final currentUser = FirebaseAuth.instance;
+  Future<Map<String, String>> _getUserData(User user) async {
+    if (user.providerData[0].providerId == 'google.com') {
+      return {'name': user.displayName!, 'source': 'google'};
+    } else {
+      final databaseRef = FirebaseDatabase.instance
+          .reference()
+          .child('users')
+          .child(user.uid)
+          .child('fullname');
+      DatabaseEvent event = await databaseRef.once();
+      DataSnapshot snapshot = event.snapshot;
+      final fullname = snapshot.value.toString();
+      return {'name': fullname, 'source': 'realtime_database'};
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +45,7 @@ class _loggedState extends State<logged> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 50, right: 30),
+                  padding: const EdgeInsets.only(top: 50, right: 20, left: 30),
                   child: Column(
                     children: [
                       ClipRRect(
@@ -42,40 +59,31 @@ class _loggedState extends State<logged> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    child: StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection("user")
-                          .where("uid", isEqualTo: currentUser.currentUser!.uid)
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, i) {
-                              var data = snapshot.data!.docs[i];
-                              return InkWell(
-                                child: Text(
-                                  data['fullname'],
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          return CircularProgressIndicator();
-                        }
-                      },
-                    ),
-                    onTap: () {},
+      FutureBuilder(
+        future: _getUserData(user!),
+        builder:
+            (BuildContext context, AsyncSnapshot<Map<String, String>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData) {
+            final userData = snapshot.data!;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Text(
+                    ' ${userData['name']}',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
-                )
+                ),
+              ],
+            );
+          } else {
+            return Center(child: Text('Error retrieving user data'));
+          }
+        },
+      ),
               ],
             ),
           ),
@@ -112,7 +120,9 @@ class _loggedState extends State<logged> {
                       Column(
                         children: [
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.chevron_right))
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => members()));
+                              }, icon: Icon(Icons.chevron_right))
                         ],
                       )
                     ],
@@ -128,7 +138,9 @@ class _loggedState extends State<logged> {
                       Column(
                         children: [
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.chevron_right))
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => members()));
+                              }, icon: Icon(Icons.chevron_right))
                         ],
                       )
                     ],

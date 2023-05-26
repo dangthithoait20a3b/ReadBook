@@ -36,7 +36,7 @@ class _xemThemSachMoiNhatState extends State<xemThemSachMoiNhat> {
           color: Colors.black
         ),),
         leading: IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => KhamPha()));
+          Navigator.pop(context);
         }, icon: Icon(Icons.chevron_left, color: Colors.grey,)),
         actions: [
           IconButton(onPressed: (){

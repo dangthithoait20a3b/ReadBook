@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2/Login/Login.dart';
 import 'package:flutter2/home.dart';
@@ -21,6 +22,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController confirmPasswordController = TextEditingController();
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
+  final databaseRef = FirebaseDatabase.instance.reference();
   bool _obscureText = true;
   void showFaileMessage() {
     showDialog<String>(
@@ -229,7 +231,7 @@ class _RegisterState extends State<Register> {
                             email: emailController.text,
                             password: passwordController.text
                         ).then((value) {
-                          firestore.collection("user").add({
+                          databaseRef.child("users").child(value.user!.uid).set({
                             "fullname":fullnameController.text,
                             "email": emailController.text,
                             "password": passwordController.text,

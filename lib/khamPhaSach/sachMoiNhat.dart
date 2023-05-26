@@ -13,6 +13,7 @@ class sachMoiNhat extends StatefulWidget {
 
 class _sachMoiNhatState extends State<sachMoiNhat> {
   List<Post> postData = [];
+  bool isExpanded = false;
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +37,8 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
               children: [
                 Column(
                   children: [
-                    Text("Sách mới nhất",
+                    Text(
+                      "Sách mới nhất",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -43,15 +46,19 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
                 InkWell(
                   child: Column(
                     children: [
-                      Text("Xem tất cả",
+                      Text(
+                        "Xem tất cả",
                         style: TextStyle(
                           color: Colors.blueGrey,
                         ),
                       )
                     ],
                   ),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => xemThemSachMoiNhat()));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => xemThemSachMoiNhat()));
                   },
                 ),
               ],
@@ -64,39 +71,56 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
               children: [
                 Column(
                   children: [
-                    Text("TẤT CẢ",
-                      style: TextStyle(
-                        color: Colors.blueGrey,
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isExpanded =
+                              !isExpanded; // Toggle the visibility of the container
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            "TẤT CẢ",
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                            ),
+                          ),
+                          Icon(Icons.arrow_drop_down, color: Colors.blueGrey),
+                        ],
                       ),
-                    )
+                    ),
+                    Visibility(
+                      visible: isExpanded,
+                      // Set the visibility of the container
+                      child: Stack(children: [
+                        Container(),
+                      ]),
+                    ),
                   ],
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.arrow_drop_down,
-                      color: Colors.blueGrey,
-                    )
-                  ],
-                ),
+                )
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
-              child: GridView.builder(gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 150,
-                  childAspectRatio: 1/2,
-                  mainAxisSpacing: 15,
-                  crossAxisSpacing: 5
-              ),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      childAspectRatio: 1 / 2,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 5),
                   itemCount: postData.length,
-                  itemBuilder: (BuildContext, index){
-                    return  InkWell(
+                  itemBuilder: (BuildContext, index) {
+                    return InkWell(
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 4), // khoảng cách Images
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              // khoảng cách Images
                               color: Colors.grey,
                               width: double.infinity,
                               child: InkWell(
@@ -105,8 +129,12 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
                                   fit: BoxFit.fill,
                                   height: 150,
                                 ),
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => chiTietBook(postData: postData[index])));
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => chiTietBook(
+                                              postData: postData[index])));
                                 },
                               ),
                             ),
@@ -133,10 +161,8 @@ class _sachMoiNhatState extends State<sachMoiNhat> {
                         ),
                       ),
                     );
-                  }
-              ),
+                  }),
             )
-
           ],
         ),
       ),

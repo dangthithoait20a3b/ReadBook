@@ -14,7 +14,7 @@ class _membersState extends State<members> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => KhamPha())), icon: Icon(Icons.arrow_back, color: Colors.black,)),
+        leading: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back, color: Colors.black,)),
         title: Text("Trở Thành Thành Viên Vip", style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
