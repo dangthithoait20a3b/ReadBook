@@ -149,7 +149,7 @@ class _KhamPhaState extends State<KhamPha> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => templateTheLoai(postData: posts[index], selectedCategory: category)));
+                                      builder: (context) => templateTheLoai(postData: posts[0], selectedCategory: category)));
                             },
                           ),
                         );
